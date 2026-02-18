@@ -1,13 +1,32 @@
 {
   "name": "interview",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "to run this\r npm install express",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.17.2",
+    "nodemon": "^3.1.11"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nghia182004/interviewrepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nghia182004/interviewrepo/issues"
+  },
+  "homepage": "https://github.com/nghia182004/interviewrepo#readme"
 }
