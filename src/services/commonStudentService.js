@@ -1,4 +1,4 @@
-import { findCommonStudents } from "../repositories/commonStudentRepository.js"
+import { findCommonStudents, findCommonStudentsOfMany } from "../repositories/commonStudentRepository.js"
 import { findTeacherByEmail } from "../repositories/teacherRepository.js"
 
 class GetCommonStudentsService {
@@ -12,9 +12,20 @@ class GetCommonStudentsService {
                 return teacherId
             })
         )
-        const result = await findCommonStudents(teacherIds)
+        if (!teacherIds || teacherIds.length === 0) {
+            return []
+        }
 
-        return result
+        const uniqueTeacherIds = [...new Set(teacherIds)]
+
+        if (uniqueTeacherIds.length === 1) {
+            const result = await findCommonStudents(uniqueTeacherIds)
+            return result
+        }
+        else {
+            const result = await findCommonStudentsOfMany(uniqueTeacherIds)
+            return result
+        }
 
     }
 }

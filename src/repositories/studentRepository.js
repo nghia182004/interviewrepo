@@ -39,3 +39,4 @@ export const createStudent = (email) => {
         })
     })
 }
+

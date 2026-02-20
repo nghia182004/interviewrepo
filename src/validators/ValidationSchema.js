@@ -43,3 +43,23 @@ export const commonStudentsSchema = Joi.object({
         })
 })
 
+export const suspendedStudentSchema = Joi.object({
+    student: Joi.string().email().required().messages({
+        'string.email': 'Invalid email format',
+        'any.required': 'Email is required',
+        'string.empty': 'Email cannot be empty'
+    })
+})
+
+export const notificationSchema = Joi.object({
+    teacher: Joi.string().email().required().messages({
+        'string.email': 'Invalid email format',
+        'any.required': 'Email is required',
+        'string.empty': 'Email cannot be empty'
+    }),
+    notification: Joi.string().required().messages({
+        'string': 'Invalid format',
+        'any.required': 'Notification is required',
+        'string.empty': 'Notification cannot be empty'
+    })
+})

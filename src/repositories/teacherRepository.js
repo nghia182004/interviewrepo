@@ -39,3 +39,4 @@ export const createTeacher = (email) => {
         })
     })
 }
+

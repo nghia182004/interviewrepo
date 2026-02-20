@@ -2,13 +2,8 @@ import DBconnection from "../config/db.js";
 
 export const findCommonStudents = (teacherIds) => {
     return new Promise((resolve, reject) => {
-        if (!teacherIds || teacherIds.length === 0) {
-            return resolve([])
-        }
 
-
-        if (teacherIds.length === 1) {
-            const sql = `
+        const sqlQuery = `
                 SELECT DISTINCT s.id, s.email, s.is_suspended
                 FROM students s
                 INNER JOIN registrations r ON s.id = r.student_id
@@ -16,14 +11,19 @@ export const findCommonStudents = (teacherIds) => {
                 ORDER BY s.email
             `
 
-            DBconnection.query(sql, [teacherIds[0]], (err, results) => {
-                if (err) return reject(err)
-                resolve(results)
-            })
-        } else {
+        DBconnection.query(sqlQuery, [teacherIds[0]], (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
 
-            const placeholders = teacherIds.map(() => '?').join(',')
-            const sql = `
+    })
+}
+
+
+export const findCommonStudentsOfMany = (teacherIds) => {
+    return new Promise((resolve, reject) => {
+        const placeholders = teacherIds.map(() => '?').join(',')
+        const sqlQuery = `
                 SELECT s.id, s.email, s.is_suspended
                 FROM students s
                 INNER JOIN registrations r ON s.id = r.student_id
@@ -33,10 +33,11 @@ export const findCommonStudents = (teacherIds) => {
                 ORDER BY s.email
             `
 
-            DBconnection.query(sql, [...teacherIds, teacherIds.length], (err, results) => {
-                if (err) return reject(err)
-                resolve(results)
-            })
-        }
+        DBconnection.query(sqlQuery, [...teacherIds, teacherIds.length], (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
     })
 }
+
+
