@@ -9,10 +9,6 @@ A RESTful API for managing student-teacher registrations built with Node.js, Exp
 - [Prerequisites](#prerequisites)
 - [Start](#start)
 - [API Endpoints](#api-endpoints)
-- [Environment Variables](#environment-variables)
-- [Docker Commands](#docker-commands)
-- [Troubleshooting](#troubleshooting)
-- [Development](#development)
 
 ##  Features
 
@@ -107,3 +103,85 @@ The application should now be running at:
 - **MySQL Database**: localhost:3307 (external port)
 
 
+## API Endpoints
+1. Register one or more students to a specified teacher.
+
+- Endpoint: POST /api/register
+- Headers: Content-Type: application/json
+- Success response status: HTTP 204
+- Request body example:
+
+```bash
+{
+  "teacher": "teacherken@gmail.com"
+  "students":
+    [
+      "studentjon@gmail.com",
+      "studenthon@gmail.com"
+    ]
+}
+```
+
+2. Retrieve a list of students common to a given list of teachers (i.e. retrieve students who are registered to ALL of the given teachers).
+
+- Endpoint: GET /api/commonstudents
+- Success response status: HTTP 200
+- Request example 1: GET /api/commonstudents?teacher=teacherken%40gmail.com
+- Success response body 1:
+```bash
+{
+  "students" :
+    [
+      "commonstudent1@gmail.com", 
+      "commonstudent2@gmail.com",
+      "student_only_under_teacher_ken@gmail.com"
+    ]
+}
+```
+
+3. Suspend a specified student.
+
+- Endpoint: POST /api/suspend
+- Headers: Content-Type: application/json
+- Success response status: HTTP 204
+- Request body example:
+```bash
+{
+  "student" : "studentmary@gmail.com"
+}
+```
+
+4.Retrieve a list of students who can receive a given notification.
+A notification consists of:
+
+- the teacher who is sending the notification, and
+- the text of the notification itself.
+
+To receive notifications from e.g. 'teacherken@gmail.com', a student:
+
+-MUST NOT be suspended,
+-AND MUST fulfill AT LEAST ONE of the following:
+i.is registered with “teacherken@gmail.com"
+ii.has been @mentioned in the notification
+
+- Endpoint: POST /api/retrievefornotifications
+- Headers: Content-Type: application/json
+- Success response status: HTTP 200
+- Request body example:
+```bash
+{
+  "teacher":  "teacherken@gmail.com",
+  "notification": "Hello students! @studentagnes@gmail.com @studentmiche@gmail.com"
+}
+```
+- Success response body 1:
+```bash
+{
+  "recipients":
+    [
+      "studentbob@gmail.com",
+      "studentagnes@gmail.com", 
+      "studentmiche@gmail.com"
+    ]   
+}
+```
