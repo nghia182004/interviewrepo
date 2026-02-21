@@ -7,33 +7,43 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+
 services:
   backend:
     build: .
     ports:
       - '3500:3500'
-    environment:
-      NODE_ENV: production
-      DB_HOST: ${DB_HOST}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+    env_file:
+      - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: on-failure  
+    networks:
+      - app-network
 
-  db: 
+  db:
     image: mysql:latest
     ports:
-      - '3306:3306'  
-    restart: always
-    
+      - '3307:3306'  
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-   
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
 
 volumes:
   db_data:
 
+networks:
+  app-network:
+    driver: bridge

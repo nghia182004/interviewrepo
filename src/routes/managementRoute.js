@@ -1,5 +1,5 @@
 import express from 'express'
-import Validate from '../middlewares/Validation.js'
+import Validate from '../middlewares/validation.js'
 import { commonStudentsSchema, notificationSchema, registrationForTeacherSchema, suspendedStudentSchema } from '../validators/ValidationSchema.js'
 import { registerForTeacher } from '../controllers/api/registrationController.js'
 import { GetCommonStudents } from '../controllers/api/commonStudentController.js'

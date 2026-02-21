@@ -52,7 +52,7 @@ describe('registrationController - registerForTeacher', () => {
                 req.validatedBody.teacher,
                 req.validatedBody.students
             );
-            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.status).toHaveBeenCalledWith(204);
             expect(res.json).toHaveBeenCalledWith({
                 message: 'Registration successful'
             });
@@ -118,7 +118,7 @@ describe('registrationController - registerForTeacher', () => {
                 req.validatedBody.teacher,
                 []
             );
-            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.status).toHaveBeenCalledWith(204);
         });
     });
 });
