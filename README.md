@@ -151,7 +151,7 @@ The application should now be running at:
 }
 ```
 
-4.Retrieve a list of students who can receive a given notification.
+4. Retrieve a list of students who can receive a given notification.
 A notification consists of:
 
 - the teacher who is sending the notification, and
@@ -159,10 +159,10 @@ A notification consists of:
 
 To receive notifications from e.g. 'teacherken@gmail.com', a student:
 
--MUST NOT be suspended,
--AND MUST fulfill AT LEAST ONE of the following:
-i.is registered with “teacherken@gmail.com"
-ii.has been @mentioned in the notification
+- MUST NOT be suspended,
+- AND MUST fulfill AT LEAST ONE of the following:
+i. is registered with “teacherken@gmail.com"
+ii. has been @mentioned in the notification
 
 - Endpoint: POST /api/retrievefornotifications
 - Headers: Content-Type: application/json
