@@ -29,7 +29,7 @@ export const findTeacherByEmail = (email) => {
 
 export const createTeacher = (email) => {
     return new Promise((resolve, reject) => {
-        const sqlQuery = 'insert into teachers (email) values (?)'
+        const sqlQuery = 'INSERT INTO teachers (email) VALUES (?)'
 
         DBconnection.query(sqlQuery, [email], (err, results) => {
             if (err) return reject(err)
