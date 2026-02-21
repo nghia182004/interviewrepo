@@ -6,7 +6,7 @@ export const errorHandler = (err, req, res, next) => {
     const message = err.message || 'Internal server error'
 
     res.status(statusCode).json({
-        message: message,
+        error: message,
 
     })
 }
