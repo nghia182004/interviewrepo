@@ -3,12 +3,11 @@ import { errorHandler } from './middlewares/errorHandler.js'
 import teacherRoutes from './routes/teacherRoute.js'
 import studentRoutes from './routes/studentRoute.js'
 import managementRoutes from './routes/managementRoute.js'
+
 import cors from 'cors'
 const app = express()
 const allowedOrigins = [
     //placeholders
-    'https://yourdomain.com',
-    'https://api.yourdomain.com',
     process.env.FRONTEND_URL
 ];
 

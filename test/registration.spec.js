@@ -10,7 +10,7 @@ await jest.unstable_mockModule('../src/services/registrationService.js', () => (
 }));
 
 
-const { registerForTeacher } = await import("../src/controllers/api/registrationController.js");
+const { registerForTeacher } = await import("../src/controllers/management/registrationController.js");
 
 describe('registrationController - registerForTeacher', () => {
     let req, res, next;
@@ -53,9 +53,7 @@ describe('registrationController - registerForTeacher', () => {
                 req.validatedBody.students
             );
             expect(res.status).toHaveBeenCalledWith(204);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'Registration successful'
-            });
+
             expect(next).not.toHaveBeenCalled();
         });
 

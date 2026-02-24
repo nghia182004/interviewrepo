@@ -1,42 +1,28 @@
-import DBconnection from "../config/db.js";
+import prisma from "#config/db";
 
-export const findAllTeachers = (email) => {
-    return new Promise((resolve, reject) => {
-        const sqlQuery = 'SELECT id, email, created_at FROM teachers'
+export const findAllTeachers = async () => {
+    const teacher = await prisma.teacher.findFirst({
+        select: { id: true },
+        orderBy: { id: "asc" },
+    });
 
-        DBconnection.query(sqlQuery, [email], (err, results) => {
-            if (err) return reject(err)
-            if (results.length > 0) {
-                return resolve(results[0].id)
-            }
-            resolve(null)
-        })
-    })
-}
-export const findTeacherByEmail = (email) => {
-    return new Promise((resolve, reject) => {
-        const sqlQuery = 'SELECT id, email, created_at FROM teachers WHERE email = ?'
+    return teacher?.id ?? null;
+};
 
-        DBconnection.query(sqlQuery, [email], (err, results) => {
-            if (err) return reject(err)
-            if (results.length > 0) {
-                return resolve(results[0].id)
-            }
-            resolve(null)
-        })
-    })
-}
+export const findTeacherByEmail = async (email) => {
+    const teacher = await prisma.teacher.findUnique({
+        where: { email },
+        select: { id: true },
+    });
 
-export const createTeacher = (email) => {
-    return new Promise((resolve, reject) => {
-        const sqlQuery = 'INSERT INTO teachers (email) VALUES (?)'
+    return teacher?.id ?? null;
+};
 
-        DBconnection.query(sqlQuery, [email], (err, results) => {
-            if (err) return reject(err)
+export const createTeacher = async (email) => {
+    const created = await prisma.teacher.create({
+        data: { email },
+        select: { id: true },
+    });
 
-            resolve(results.insertId)
-
-        })
-    })
-}
-
+    return created.id;
+};

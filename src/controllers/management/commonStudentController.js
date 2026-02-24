@@ -1,6 +1,4 @@
-import GetCommonStudentsService from "../../services/commonStudentService.js"
-
-
+import GetCommonStudentsService from "#services/commonStudentService";
 export const GetCommonStudents = async (req, res, next) => {
     try {
         const { teacher } = req.validatedBody

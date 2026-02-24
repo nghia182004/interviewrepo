@@ -1,5 +1,6 @@
 import { findMentionedStudents, findAllUnsuspendedStudentsByTeacher } from "../repositories/notificationRepository.js"
-import { findTeacherByEmail } from "../repositories/teacherRepository.js";
+import { findTeacherByEmail } from "#repositories/teacherRepository";
+import { Regex } from "#utils/regex";
 
 class NotificationService {
     async getRecipients(teacher, notification) {
@@ -24,7 +25,7 @@ class NotificationService {
     }
     extractMentions(text) {
 
-        const mentionRegex = /@([^\s@]+@[^\s@]+\.[^\s@]+)/g;
+        const mentionRegex = Regex
         const mentions = [];
         let match;
 

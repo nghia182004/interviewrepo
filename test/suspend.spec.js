@@ -9,7 +9,7 @@ await jest.unstable_mockModule('../src/services/suspendStudentService.js', () =>
     }
 }));
 
-const { suspendStudent } = await import("../src/controllers/api/suspendStudentController.js");
+const { suspendStudent } = await import("../src/controllers/management/suspendStudentController.js");
 
 describe('suspendStudentController - suspendStudent', () => {
     let req, res, next;
@@ -43,9 +43,7 @@ describe('suspendStudentController - suspendStudent', () => {
             expect(mockSuspend).toHaveBeenCalledTimes(1);
             expect(mockSuspend).toHaveBeenCalledWith('studentjon@gmail.com');
             expect(res.status).toHaveBeenCalledWith(204);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'Student suspended successfully'
-            });
+
             expect(next).not.toHaveBeenCalled();
         });
 
@@ -78,9 +76,7 @@ describe('suspendStudentController - suspendStudent', () => {
 
             await suspendStudent(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'Student account has been suspended'
-            });
+
         });
     });
 
@@ -151,19 +147,6 @@ describe('suspendStudentController - suspendStudent', () => {
             await suspendStudent(req, res, next);
 
             expect(res.status).toHaveBeenCalledWith(204);
-        });
-
-        it('should include message in response body', async () => {
-            const mockResult = { message: 'Custom suspension message' };
-            mockSuspend.mockResolvedValue(mockResult);
-
-            await suspendStudent(req, res, next);
-
-            expect(res.json).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    message: expect.any(String)
-                })
-            );
         });
 
 

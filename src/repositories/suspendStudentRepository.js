@@ -1,18 +1,10 @@
-import DBconnection from "../config/db.js";
+import prisma from "#config/db";
 
-export const suspendStudent = (email) => {
-    return new Promise((resolve, reject) => {
-        const sqlQuery = `UPDATE students s 
-            SET s.is_suspended = 
-                CASE 
-                    WHEN s.is_suspended = 0 THEN 1
-                    ELSE 1
-                END 
-            WHERE s.email = ?`
+export const suspendStudent = async (email) => {
+    await prisma.student.update({
+        where: { email },
+        data: { isSuspended: true },
+    });
 
-        DBconnection.query(sqlQuery, [email], (err, result) => {
-            if (err) return reject(err)
-            resolve(null)
-        })
-    })
-}
+    return null;
+};
