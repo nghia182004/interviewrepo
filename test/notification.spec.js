@@ -9,7 +9,7 @@ await jest.unstable_mockModule('../src/services/notificationService.js', () => (
     }
 }));
 
-const { getRecipients } = await import("../src/controllers/api/notificationController.js");
+const { getRecipients } = await import("../src/controllers/management/notificationController.js");
 
 describe('notificationController - getRecipients', () => {
     let req, res, next;

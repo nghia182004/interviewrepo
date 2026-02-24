@@ -2,13 +2,13 @@
 const { jest } = await import('@jest/globals');
 
 const mockGet = jest.fn();
-await jest.unstable_mockModule('../src/services/commonStudentService.js', () => ({
+await jest.unstable_mockModule('#services/commonStudentService', () => ({
     default: {
         get: mockGet
     }
 }));
 
-const { GetCommonStudents } = await import("../src/controllers/api/commonStudentController.js");
+const { GetCommonStudents } = await import("../src/controllers/management/commonStudentController.js");
 
 describe('commonStudentController - GetCommonStudents', () => {
     let req, res, next;

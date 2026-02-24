@@ -1,7 +1,7 @@
 import express from 'express'
-import { createTeacher, getTeacherByEmail } from '../controllers/teacherController.js'
-import { emailSchema } from '../validators/ValidationSchema.js'
-import Validate from '../middlewares/validation.js'
+import { createTeacher, getTeacherByEmail } from '#controllers/teacherController'
+import { emailSchema } from '#validators/ValidationSchema'
+import Validate from '#middlewares/validation'
 
 const router = express.Router()
 

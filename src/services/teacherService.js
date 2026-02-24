@@ -1,4 +1,4 @@
-import { findTeacherByEmail, createTeacher } from '../repositories/teacherRepository.js'
+import { findTeacherByEmail, createTeacher } from '#repositories/teacherRepository'
 class TeacherService {
     async create(email) {
         const existingTeacher = await findTeacherByEmail(email)

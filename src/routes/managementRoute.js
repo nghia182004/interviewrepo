@@ -1,10 +1,10 @@
 import express from 'express'
-import Validate from '../middlewares/validation.js'
-import { commonStudentsSchema, notificationSchema, registrationForTeacherSchema, suspendedStudentSchema } from '../validators/ValidationSchema.js'
-import { registerForTeacher } from '../controllers/api/registrationController.js'
-import { GetCommonStudents } from '../controllers/api/commonStudentController.js'
-import { suspendStudent } from '../controllers/api/suspendStudentController.js'
-import { getRecipients } from '../controllers/api/notificationController.js'
+import Validate from '#middlewares/validation'
+import { commonStudentsSchema, notificationSchema, registrationForTeacherSchema, suspendedStudentSchema } from '#validators/ValidationSchema'
+import { registerForTeacher } from '#controllers/management/registrationController'
+import { GetCommonStudents } from '#controllers/management/commonStudentController'
+import { suspendStudent } from '#controllers/management/suspendStudentController'
+import { getRecipients } from '#controllers/management/notificationController'
 
 
 const router = express.Router()

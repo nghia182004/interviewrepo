@@ -1,6 +1,6 @@
-import { registerForTeacher } from "../repositories/registrationRepository.js";
-import { findStudentByEmail } from "../repositories/studentRepository.js";
-import { findTeacherByEmail } from "../repositories/teacherRepository.js";
+import { registerForTeacher } from "#repositories/registrationRepository";
+import { findStudentByEmail } from "#repositories/studentRepository";
+import { findTeacherByEmail } from "#repositories/teacherRepository";
 
 class RegistrationService {
     async register(teacher, students) {
@@ -20,7 +20,7 @@ class RegistrationService {
 
         const result = await registerForTeacher(teacherId, studentIds)
 
-        return { message: "Resgister successfully" }
+        return
 
 
     }

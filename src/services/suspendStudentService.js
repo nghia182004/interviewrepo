@@ -1,5 +1,5 @@
-import { findStudentByEmail } from "../repositories/studentRepository.js";
-import { suspendStudent } from "../repositories/suspendStudentRepository.js";
+import { findStudentByEmail } from "#repositories/studentRepository";
+import { suspendStudent } from "#repositories/suspendStudentRepository";
 
 class SuspendStudent {
     async suspend(email) {
@@ -10,7 +10,7 @@ class SuspendStudent {
 
         const result = await suspendStudent(email)
 
-        return { message: `Student with email: ${email} has been suspended` }
+        return
 
 
     }

@@ -1,4 +1,4 @@
-import { findStudentByEmail, createStudent } from '../repositories/studentRepository.js'
+import { findStudentByEmail, createStudent } from '#repositories/studentRepository'
 class StudentService {
     async create(email) {
         const existingStudent = await findStudentByEmail(email)

@@ -1,14 +1,15 @@
-import DBconnection from "../config/db.js";
+import prisma from "#config/db";
 
-export const registerForTeacher = (teacher, students) => {
-    return new Promise((resolve, reject) => {
-        const value = students.map(student => [teacher, student])
-        const sqlQuery = 'INSERT IGNORE INTO registrations (teacher_id, student_id) VALUES ?'
+export const registerForTeacher = async (teacherId, studentIds) => {
+    if (!studentIds?.length) return null;
 
-        DBconnection.query(sqlQuery, [value], (err, results) => {
-            if (err) return reject(err)
+    await prisma.registration.createMany({
+        data: studentIds.map((studentId) => ({
+            teacherId,
+            studentId,
+        })),
+        skipDuplicates: true, // equivalent to INSERT IGNORE for PK duplicates
+    });
 
-            resolve(null)
-        })
-    })
-}
+    return null;
+};
