@@ -1,4 +1,4 @@
-import { findMentionedStudents, findAllUnsuspendedStudentsByTeacherId } from "../repositories/notificationRepository.js"
+import { findMentionedStudents, findAllUnsuspendedStudentsByTeacherId } from "#repositories/notificationRepository"
 import { findTeacherByEmail } from "#repositories/teacherRepository";
 import { NOTIFICATION_PATTERN } from "#utils/regex";
 
