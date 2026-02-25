@@ -1,31 +1,28 @@
 import prisma from "#config/db";
 
-export const findAllUnsuspendedStudentsByTeacher = async (email) => {
-    const students = await prisma.student.findMany({
+
+export const findAllUnsuspendedStudentsByTeacherId = async (teacherId) => {
+    return prisma.student.findMany({
         where: {
             isSuspended: false,
             registrations: {
-                some: {
-                    teacher: { email }
-                }
-            }
+                some: { teacherId },
+            },
         },
-        select: { email: true }
+        select: { email: true },
+        orderBy: { email: "asc" },
     });
-
-    return students;
 };
 
 export const findMentionedStudents = async (emails) => {
     if (!emails?.length) return [];
 
-    const students = await prisma.student.findMany({
+    return prisma.student.findMany({
         where: {
             isSuspended: false,
-            email: { in: emails }
+            email: { in: emails },
         },
-        select: { email: true }
+        select: { email: true },
+        orderBy: { email: "asc" },
     });
-
-    return students;
 };

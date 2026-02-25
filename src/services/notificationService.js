@@ -1,40 +1,54 @@
-import { findMentionedStudents, findAllUnsuspendedStudentsByTeacher } from "../repositories/notificationRepository.js"
+import { findMentionedStudents, findAllUnsuspendedStudentsByTeacherId } from "../repositories/notificationRepository.js"
 import { findTeacherByEmail } from "#repositories/teacherRepository";
 import { Regex } from "#utils/regex";
 
 class NotificationService {
     async getRecipients(teacher, notification) {
-        const teacherId = await findTeacherByEmail(teacher)
+        const teacherId = await findTeacherByEmail(teacher);
         if (!teacherId) {
-            throw new Error(`Teachers with email ${teacher} doesn't exists`)
+            const err = new Error(`Teacher with email ${teacher} doesn't exist`);
+            err.status = 404;
+            throw err;
         }
-        const unsuspendedStudents = await findAllUnsuspendedStudentsByTeacher(teacher)
-        const mentions = this.extractMentions(notification);
 
-        let allRecipients = [...unsuspendedStudents];
-        if (mentions.length > 0) {
-            const mentionedStudents = await findMentionedStudents(mentions);
-            allRecipients = [...unsuspendedStudents, ...mentionedStudents];
+        const unsuspendedStudents = await findAllUnsuspendedStudentsByTeacherId(teacherId);
+
+        const mentions = [...new Set(
+            this.extractMentions(notification)
+                .map(e => String(e).trim().toLowerCase())
+                .filter(Boolean)
+        )];
+
+        const mentionedStudents = mentions.length
+            ? await findMentionedStudents(mentions)
+            : [];
+
+
+        const emailSet = new Set();
+        const recipients = [];
+        for (const s of [...unsuspendedStudents, ...mentionedStudents]) {
+            if (!emailSet.has(s.email)) {
+                emailSet.add(s.email);
+                recipients.push(s);
+            }
         }
-        const uniqueRecipients = [...new Set(allRecipients)];
 
-        return { recipients: uniqueRecipients };
-
-
-
+        return { recipients };
     }
-    extractMentions(text) {
 
-        const mentionRegex = Regex
+    extractMentions(text) {
+        if (!text) return [];
+
+        const mentionRegex = new RegExp(Regex.source, Regex.flags);
+        mentionRegex.lastIndex = 0;
+
         const mentions = [];
         let match;
-
         while ((match = mentionRegex.exec(text)) !== null) {
             mentions.push(match[1]);
         }
-
         return mentions;
     }
 }
 
-export default new NotificationService()
+export default new NotificationService();

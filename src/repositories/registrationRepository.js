@@ -8,7 +8,7 @@ export const registerForTeacher = async (teacherId, studentIds) => {
             teacherId,
             studentId,
         })),
-        skipDuplicates: true, // equivalent to INSERT IGNORE for PK duplicates
+        skipDuplicates: true,
     });
 
     return null;

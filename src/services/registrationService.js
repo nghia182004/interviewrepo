@@ -12,13 +12,15 @@ class RegistrationService {
             students.map(async (email) => {
                 const studentId = await findStudentByEmail(email)
                 if (!studentId) {
-                    throw new Error(`Student with email ${email} doesn't exists`)
+                    const err = new Error(`Student with email ${email} doesn't exist`);
+                    err.status = 404;
+                    throw err;
                 }
                 return studentId
             })
         )
 
-        const result = await registerForTeacher(teacherId, studentIds)
+        await registerForTeacher(teacherId, studentIds)
 
         return
 
