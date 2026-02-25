@@ -28,7 +28,7 @@ A RESTful API for managing student-teacher registrations built with Node.js, Exp
 - **Database**: MySQL 8.0
 - **Containerization**: Docker, Docker Compose
 - **Validation**: Joi
-- **ORM**: mysql2 (with promises)
+- **ORM**: Prisma 6
 
 ##  Prerequisites
 
