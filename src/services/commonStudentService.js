@@ -13,7 +13,9 @@ class GetCommonStudentsService {
             teachers.map(async (email) => {
                 const teacherId = await findTeacherByEmail(email);
                 if (!teacherId) {
-                    throw new Error(`Teacher with email ${email} doesn't exists`);
+                    const err = new Error(`Teacher with email ${email} doesn't exists`);
+                    err.status = 404;
+                    throw err;
                 }
                 return teacherId;
             })

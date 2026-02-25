@@ -32,14 +32,15 @@ describe('registrationController - registerForTeacher', () => {
 
         res = {
             status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis()
+            json: jest.fn().mockReturnThis(),
+            sendStatus: jest.fn(),
         };
 
         next = jest.fn();
     });
 
     describe('Successful registration', () => {
-        it('should register teacher and students successfully and return 201 status', async () => {
+        it('should register teacher and students successfully and return 204 status', async () => {
             const mockResult = {
                 message: 'Registration successful'
             };
@@ -52,7 +53,7 @@ describe('registrationController - registerForTeacher', () => {
                 req.validatedBody.teacher,
                 req.validatedBody.students
             );
-            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.sendStatus).toHaveBeenCalledWith(204);
 
             expect(next).not.toHaveBeenCalled();
         });
@@ -116,7 +117,7 @@ describe('registrationController - registerForTeacher', () => {
                 req.validatedBody.teacher,
                 []
             );
-            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.sendStatus).toHaveBeenCalledWith(204);
         });
     });
 });

@@ -5,10 +5,12 @@ class SuspendStudent {
     async suspend(email) {
         const existingStudent = await findStudentByEmail(email)
         if (!existingStudent) {
-            throw new Error(`Student with email ${email} doesn't exists`)
+            const err = new Error(`Student with email ${email} doesn't exists`)
+            err.status = 404;
+            throw err;
         }
 
-        const result = await suspendStudent(email)
+        await suspendStudent(email)
 
         return
 

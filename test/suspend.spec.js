@@ -25,7 +25,8 @@ describe('suspendStudentController - suspendStudent', () => {
 
         res = {
             status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis()
+            json: jest.fn().mockReturnThis(),
+            sendStatus: jest.fn(),
         };
 
         next = jest.fn();
@@ -42,7 +43,7 @@ describe('suspendStudentController - suspendStudent', () => {
 
             expect(mockSuspend).toHaveBeenCalledTimes(1);
             expect(mockSuspend).toHaveBeenCalledWith('studentjon@gmail.com');
-            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.sendStatus).toHaveBeenCalledWith(204);
 
             expect(next).not.toHaveBeenCalled();
         });
@@ -65,7 +66,7 @@ describe('suspendStudentController - suspendStudent', () => {
             await suspendStudent(req, res, next);
 
             expect(mockSuspend).toHaveBeenCalledWith('alice@example.com');
-            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.sendStatus).toHaveBeenCalledWith(204);
         });
 
         it('should return service message in response', async () => {
@@ -146,7 +147,7 @@ describe('suspendStudentController - suspendStudent', () => {
 
             await suspendStudent(req, res, next);
 
-            expect(res.status).toHaveBeenCalledWith(204);
+            expect(res.sendStatus).toHaveBeenCalledWith(204);
         });
 
 
