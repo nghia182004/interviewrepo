@@ -22,7 +22,7 @@ A RESTful API for managing student-teacher registrations built with Node.js, Exp
 - Input validation with Joi
 - Error handling middleware
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL 8.0
