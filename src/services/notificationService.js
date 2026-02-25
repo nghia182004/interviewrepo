@@ -1,6 +1,6 @@
-import { findMentionedStudents, findAllUnsuspendedStudentsByTeacherId } from "../repositories/notificationRepository.js"
+import { findMentionedStudents, findAllUnsuspendedStudentsByTeacherId } from "#repositories/notificationRepository"
 import { findTeacherByEmail } from "#repositories/teacherRepository";
-import { Regex } from "#utils/regex";
+import { NOTIFICATION_PATTERN } from "#utils/regex";
 
 class NotificationService {
     async getRecipients(teacher, notification) {
@@ -39,7 +39,7 @@ class NotificationService {
     extractMentions(text) {
         if (!text) return [];
 
-        const mentionRegex = new RegExp(Regex.source, Regex.flags);
+        const mentionRegex = new RegExp(NOTIFICATION_PATTERN.source, NOTIFICATION_PATTERN.flags);
         mentionRegex.lastIndex = 0;
 
         const mentions = [];

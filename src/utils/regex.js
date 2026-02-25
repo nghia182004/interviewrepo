@@ -1,1 +1,1 @@
-export const Regex = /@([^\s@]+@[^\s@]+\.[^\s@]+)/g;
+export const NOTIFICATION_PATTERN = /@([^\s@]+@[^\s@]+\.[^\s@]+)/g;

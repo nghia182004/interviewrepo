@@ -101,9 +101,8 @@ docker-compose exec db mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "SHOW DATABASES;
 The application should now be running at:
 - **Backend API**: http://localhost:3500
 
-- **MySQL Database**: localhost:3307 (
-Why 3307 instead of 3306 on the host?
-If your host already has something using 3306 (another MySQL instance, another container, etc.), you can map the container’s internal 3306 to a different host port like 3307 to avoid a port conflict. Also, the database is empty)
+- **MySQL Database**: localhost:3306 (
+If your host already has something using 3306 (another MySQL instance, another container, etc.), you can map the container’s internal 3306 to a different host port like 3307 in the compose.yaml to avoid a port conflict. Also, the database is empty)
 
 
 ## API Endpoints
